@@ -1,8 +1,9 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom"
 import Layout from "./layouts/Layout"
+import Register from "./pages/Register"
 
-type Props = {}
-const App = (props: Props) => {
+
+const App = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -16,6 +17,15 @@ const App = (props: Props) => {
             <p>Search Page</p>
           </Layout>}
         />
+        <Route path="/register" element={
+          <Layout>
+            <Register/>
+          </Layout>
+          }/>
+
+        {/* <Route path="*" element={<Navigate to="/"/>}> */}
+
+        
       </Routes>
     </BrowserRouter>
   )
