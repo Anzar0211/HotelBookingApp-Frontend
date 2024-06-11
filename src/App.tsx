@@ -1,6 +1,7 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom"
 import Layout from "./layouts/Layout"
 import Register from "./pages/Register"
+import SignIn from "./pages/SignIn"
 
 
 const App = () => {
@@ -22,7 +23,12 @@ const App = () => {
             <Register/>
           </Layout>
           }/>
-
+        <Route path="/sign-in" element={
+          <Layout>
+            <SignIn/>
+          </Layout>
+        
+        }/>
         {/* <Route path="*" element={<Navigate to="/"/>}> */}
 
         
