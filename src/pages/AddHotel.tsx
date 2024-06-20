@@ -3,14 +3,16 @@ import ManageHotelForm from "../forms/ManageHotelForm/ManageHotelForm"
 import { useAppContext } from "../contexts/AppContext";
 // import { useLocation, useNavigate } from "react-router-dom";
 import * as apiClient from "../api-client";
+import { useNavigate } from "react-router-dom";
 
 
 const AddHotel=()=>{
+    const navigate=useNavigate()
     const{showToast}=useAppContext()
     const{mutate,isLoading}=useMutation(apiClient.addHotel,{
         onSuccess:()=>{
             showToast({message:"Hotel added successfully",type:"SUCCESS"})
-            // navigate("/my-hotels")
+            navigate("/my-hotels")
         },
         onError:(error:Error)=>{
             showToast({message:error.message,type:"ERROR"})
