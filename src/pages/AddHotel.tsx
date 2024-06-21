@@ -22,7 +22,7 @@ const AddHotel=()=>{
         mutate(hotelFormData)
     }
     return(
-        <ManageHotelForm onSave={handleSave} isLoading={isLoading}/>
+        <ManageHotelForm formType="Add Hotel" onSave={handleSave} isLoading={isLoading}/>
     )
 }
 

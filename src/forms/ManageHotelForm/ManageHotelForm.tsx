@@ -24,12 +24,13 @@ export type HotelFormData={
 }
 
 type Props={
-    hotel?:HotelType
+    hotel?:HotelType,
+    formType:string,
     onSave:(hotelFormData:FormData)=>void;
     isLoading:boolean
 }
 
-const ManageHotelForm=({onSave,isLoading,hotel}:Props)=>{
+const ManageHotelForm=({onSave,isLoading,hotel,formType}:Props)=>{
     const formMethods=useForm<HotelFormData>();
     const {handleSubmit,reset}=formMethods
     useEffect(()=>{
@@ -71,7 +72,7 @@ const ManageHotelForm=({onSave,isLoading,hotel}:Props)=>{
     return(
         <FormProvider {...formMethods}>
             <form className="flex flex-col gap-10" onSubmit={onSubmit}>
-                <DetailsSection/>
+                <DetailsSection formType={formType}/>
                 <TypeSection/>
                 <FacilitiesSection/>
                 <GuestSection/>
