@@ -1,6 +1,6 @@
 import { RegisterFormData } from "./pages/Register";
 import { SignInFormData } from "./pages/SignIn";
-import {HotelType} from '../../backend/src/shared/types'
+import {HotelSearchResponse, HotelType} from '../../backend/src/shared/types'
 
 const API_BASE_URL=import.meta.env.VITE_API_BASE_URL
 
@@ -104,6 +104,33 @@ export const updateMyHotelById=async(hotelFormData:FormData)=>{
     })
     if(!response.ok){
         throw new Error("Error updating hotel")
+    }
+    return response.json()
+}
+
+export type SearchParms={
+    destination?:string,
+    checkIn?:string,
+    checkOut?:string,
+    adultCount?:string,
+    childCount?:string,
+    page?:string
+}
+
+export const searchHotels=async(searchParms:SearchParms):Promise<HotelSearchResponse>=>{
+    const queryParams=new URLSearchParams()
+    queryParams.append("destination",searchParms.destination || "")
+    queryParams.append("checkIn",searchParms.checkIn || "")
+    queryParams.append("checkOut",searchParms.checkOut || "")
+    queryParams.append("adultCount",searchParms.adultCount || "")
+    queryParams.append("childCount",searchParms.childCount || "")
+    queryParams.append("page",searchParms.page || "")
+
+    const response=await fetch(`${API_BASE_URL}/api/hotels/search?${queryParams}`,{
+        method:"GET"
+    })
+    if(!response.ok){
+        throw new Error("Error fetching hotels")
     }
     return response.json()
 }
