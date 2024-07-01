@@ -38,7 +38,7 @@ const SearchResultsCard = ({hotel}:Props) => {
                         <div className="text-sm">{(hotel.facilities.length > 3) && `+${hotel.facilities.length-3} more`}</div>
                     </div>
                     <div className="flex flex-col items-end gap-1">
-                        <span className="font-bold">${hotel.pricePerNight} per Night</span>
+                        <span className="font-bold">Rs {hotel.pricePerNight} per Night</span>
                         <Link to={`/detail/${hotel._id}`} className="bg-blue-600 text-white h-full p-2 text-bold text-sm max-w-fit">View More</Link>
                     </div>
                 </div>
