@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query'
 import * as apiClient from '../api-client'
+import { BookingType } from '../types/types'
 
 const MyBookings = () => {
     const{data:hotels}=useQuery("fetchMyBookings",apiClient.fetchMyBookings)
@@ -26,7 +27,7 @@ const MyBookings = () => {
                     {hotel.city}, {hotel.country}
                 </div>
                 </div>
-                {hotel.bookings.map((booking) => (
+                {hotel.bookings.map((booking:BookingType) => (
                     <div>
                         <div>
                             <span className="font-bold mr-2">Dates: </span>

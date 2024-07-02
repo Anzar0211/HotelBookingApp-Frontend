@@ -8,6 +8,7 @@ import StarRatingFilter from "../components/StarRatingFilter"
 import HotelTypesFilter from "../components/HotelTypesFilter"
 import FacilitiesFilter from "../components/FacilitiesFilter"
 import PriceFilter from "../components/PriceFilter"
+import { HotelType } from "../types/types"
 
 
 const Search = () => {
@@ -99,7 +100,7 @@ const Search = () => {
                         <option value="pricePerNightDesc">Price Per Night (High to Low)</option>
                     </select>
                 </div>
-                {hotelData?.data.map((hotel, index) => (
+                {hotelData?.data.map((hotel:HotelType, index:number) => (
                     <SearchResultsCard hotel={hotel} key={index} />
                 ))}
                 <div>
