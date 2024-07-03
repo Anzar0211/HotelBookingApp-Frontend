@@ -21,11 +21,15 @@ const MyBookings = () => {
                 />
                 </div>
                 <div className="flex flex-col gap-4 overflow-y-auto max-h-[300px]">
-                <div className="text-2xl font-bold">
-                    {hotel.name}
-                    <div className="text-xs font-normal">
-                    {hotel.city}, {hotel.country}
-                </div>
+                    <div className="text-2xl font-bold">
+                        {hotel.name}
+                        <div className='text-xs font-normal'>
+                            {hotel.address}
+                        </div>
+                        <div className="text-xs font-normal">
+                        {hotel.city}, {hotel.country}
+                        
+                    </div>
                 </div>
                 {hotel.bookings.map((booking:BookingType) => (
                     <div>
@@ -39,7 +43,7 @@ const MyBookings = () => {
                         <div>
                             <span className="font-bold mr-2">Guests:</span>
                             <span>
-                                {booking.adultCount} adults, {booking.childCount} children
+                                {booking.adultCount} adults, {booking.childCount || 0} children
                             </span>
                         </div>
                     </div>

@@ -29,6 +29,7 @@ const Register=()=>{
         }
     })
 
+    const{isLoading}=mutation;
     const onSubmit=handleSubmit((data)=>{
         mutation.mutate(data)
     })
@@ -100,7 +101,9 @@ const Register=()=>{
                         Already have an account? <Link className="underline" to="/sign-in">Sign In</Link>
                 </span>
                 <span>
-                    <button type="submit" className='bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700'>Register</button>
+                    <button disabled={isLoading} type="submit" className='bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 disabled:bg-gray-500'>
+                        {isLoading?"Registering...":"Register"}
+                    </button>
                 </span>
             </span>
         </form>

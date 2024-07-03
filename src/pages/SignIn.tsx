@@ -25,6 +25,7 @@ const SignIn=()=>{
             showToast({message:"Invalid Credentials",type:"ERROR"})
         }
     })
+    const{isLoading}=mutation;
     const onSubmit=handleSubmit((data)=>{
         mutation.mutate(data)
     })
@@ -61,7 +62,9 @@ const SignIn=()=>{
                     Not Registered? <Link className="underline" to="/register">Create an account here</Link>
                 </span>
                 <span>
-                    <button type="submit" className='bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700'>Login</button>
+                    <button disabled={isLoading} type="submit" className='bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 disabled:bg-gray-500'>
+                        {isLoading?'Signing In...':'Sign In'}
+                    </button>
                 </span>
             </span>
         </form>

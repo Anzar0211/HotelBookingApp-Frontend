@@ -24,7 +24,21 @@ const DetailsSection = ({formType}:Props) => {
             )}
         </label>
 
+        <div>
+            <label className="text-gray-700 text-sm font-bold flex-1">
+            Address
+                <textarea rows={2}
+                    className="border rounded border-black hover:border-black w-full py-1 px-2 text font-normal"
+                    {...register("address", { required: "This field is required" })}
+                ></textarea>
+                {errors.address && (
+                    <span className="text-red-500 text-sm">{errors.address.message}</span>
+                )}
+            </label>
+        </div>
+
         <div className="flex gap-4">
+            
             <label className="text-gray-700 text-sm font-bold flex-1">
                 City
                 <input type="text"

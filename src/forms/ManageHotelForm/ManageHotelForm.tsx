@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 export type HotelFormData={
     name:string;
+    address:string;
     city:string;
     country:string;
     description:string;
@@ -44,6 +45,7 @@ const ManageHotelForm=({onSave,isLoading,hotel,formType}:Props)=>{
             formData.append("hotelId",hotel._id)
         }
         formData.append("name",formDataJSON.name);
+        formData.append("address",formDataJSON.address);
         formData.append("city",formDataJSON.city);
         formData.append("country",formDataJSON.country);
         formData.append("description",formDataJSON.description);

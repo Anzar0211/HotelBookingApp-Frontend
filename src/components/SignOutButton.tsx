@@ -18,13 +18,15 @@ const SignOutButton=()=>{
         }
     
     })
-
+    const{isLoading}=mutation
     const handleClick=()=>{
         mutation.mutate()
     
     }
     return(
-        <button onClick={handleClick} className="text-blue-600 px-3 py-3 font-bold bg-white hover:bg-gray-100">Sign Out</button>
+        <button disabled={isLoading} onClick={handleClick} className="text-blue-600 px-3 py-3 font-bold bg-white hover:bg-gray-100 disabled:bg-gray-500">
+            {isLoading?"Signing Out...":"Sign Out"}
+        </button>
     )
 }
 
