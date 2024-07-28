@@ -3,7 +3,7 @@ import { PaymentIntentResponse, UserType } from "../../types/types"
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { StripeCardElement } from "@stripe/stripe-js";
 import { useSearchContext } from "../../contexts/SearchContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import * as apiClient from '../../api-client'
 import { useAppContext } from "../../contexts/AppContext";
@@ -18,7 +18,7 @@ export type BookingFormData={
     lastName:string;
     email:string;
     adultCount:number;
-    childrenCount:number;
+    childCount:number;
     checkIn:string;
     checkOut:string;
     hotelId:string;
@@ -28,6 +28,7 @@ export type BookingFormData={
 
 const BookingForm = ({currentUser,paymentIntent}:Props) => {
     const stripe=useStripe();
+    const navigate=useNavigate()
     const elements=useElements();
     const search=useSearchContext()
     const{hotelId}=useParams()
@@ -36,6 +37,7 @@ const BookingForm = ({currentUser,paymentIntent}:Props) => {
     const{mutate:bookRoom,isLoading}=useMutation(apiClient.createRoomBooking,{
         onSuccess:()=>{
             showToast({message:"Payment Successful,Booking Saved",type:"SUCCESS"})
+            navigate("/my-bookings");
         },
         onError:()=>{
             showToast({message:"Payment Failed",type:"ERROR"})
@@ -48,7 +50,7 @@ const BookingForm = ({currentUser,paymentIntent}:Props) => {
             lastName:currentUser.lastName,
             email:currentUser.email,
             adultCount:search.adultCount,
-            childrenCount:search.childCount,
+            childCount:search.childCount,
             checkIn:search.checkIn.toISOString(),
             checkOut:search.checkOut.toISOString(),
             hotelId:hotelId,
@@ -68,7 +70,12 @@ const BookingForm = ({currentUser,paymentIntent}:Props) => {
         })
         if(result.paymentIntent?.status==="succeeded"){
             //Book th Room
-            bookRoom({...formData,paymentIntentId:result.paymentIntent.id})
+            bookRoom({
+              ...formData,
+              childCount:
+                formData.childCount !== undefined ? formData.childCount : 0,
+              paymentIntentId: result.paymentIntent.id,
+            });
         }
     }
 

@@ -205,20 +205,30 @@ export const createPaymentIntent=async(hotelId:string,numberOfNights:string):Pro
     return response.json()
 }
 
-export const createRoomBooking=async(formData:BookingFormData)=>{
-    const response=await fetch(`${API_BASE_URL}/api/hotels/${formData.hotelId}/bookings`,{
-        method:"POST",
-        credentials:"include",
-        headers:{
-            'Content-Type':'application/json'
-        },
-        body:JSON.stringify(formData)
-    })
-    if(!response.ok){
-        throw new Error("Error booking room")
+
+export const createRoomBooking = async (formData: BookingFormData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/hotels/${formData.hotelId}/bookings`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Error booking room:", errorData);
+      throw new Error("Error booking room");
     }
 
-}
+  } catch (error) {
+    console.error("Network or server error:", error);
+    throw new Error("Error booking room");
+  }
+};
+
 
 
 export const fetchMyBookings=async():Promise<HotelType[]>=>{

@@ -9,16 +9,24 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useAppContext } from "../contexts/AppContext";
 
 const Booking = () => {
-    const{stripePromise}=useAppContext()
+    const { stripePromise } = useAppContext();
     const search = useSearchContext();
     const { hotelId } = useParams();
+
     const [numberOfNights, setNumberOfNights] = useState<number>(0);
+
+    const [isNumberOfNightsZero, setIsNumberOfNightsZero] =
+    useState<boolean>(false);
+
 
     useEffect(() => {
         if (search.checkIn && search.checkOut) {
             const nights =
             Math.abs(search.checkOut.getTime() - search.checkIn.getTime()) /
             (1000 * 60 * 60 * 24);
+            if(Math.floor(nights)===0 && nights<0.5){
+                setIsNumberOfNightsZero(true);
+            }
             setNumberOfNights(Math.ceil(nights));
         }
     }, [search.checkIn, search.checkOut]);
@@ -51,23 +59,30 @@ const Booking = () => {
 
 
     return (
-        <div className="grid md:grid-cols-[1fr_2fr]">
+      <div className="grid md:grid-cols-[1fr_2fr]">
         <BookingDetailSummary
-            checkIn={search.checkIn}
-            checkOut={search.checkOut}
-            adultCount={search.adultCount}
-            childCount={search.childCount}
-            numberOfNights={numberOfNights}
-            hotel={hotel}
+          checkIn={search.checkIn}
+          checkOut={search.checkOut}
+          adultCount={search.adultCount}
+          childCount={search.childCount}
+          numberOfNights={numberOfNights}
+          isNumberOfNightsZero={isNumberOfNightsZero}
+          hotel={hotel}
         />
         {currentUser && paymentIntentData && (
-            <Elements stripe={stripePromise} options={{
-                clientSecret: paymentIntentData.clientSecret,
-            }}>
-                <BookingForm currentUser={currentUser} paymentIntent={paymentIntentData}/>
-            </Elements>
+          <Elements
+            stripe={stripePromise}
+            options={{
+              clientSecret: paymentIntentData.clientSecret,
+            }}
+          >
+            <BookingForm
+              currentUser={currentUser}
+              paymentIntent={paymentIntentData}
+            />
+          </Elements>
         )}
-        </div>
+      </div>
     );
 };
 export default Booking;

@@ -12,8 +12,8 @@ const MyBookings = () => {
     return (
     <div className="space-y-5">
         <h1 className="text-3xl font-bold">My Bookings</h1>
-        {hotels.map((hotel) => (
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] border border-slate-300 rounded-lg p-8 gap-5">
+        {hotels.map((hotel,index) => (
+            <div key={index} className="grid grid-cols-1 lg:grid-cols-[1fr_3fr] border border-slate-300 rounded-lg p-8 gap-5">
                 <div className="lg:w-full lg:h-[250px]">
                 <img
                     src={hotel.imageUrls[0]}
@@ -31,8 +31,8 @@ const MyBookings = () => {
                         
                     </div>
                 </div>
-                {hotel.bookings.map((booking:BookingType) => (
-                    <div>
+                {hotel.bookings.map((booking:BookingType,index:number) => (
+                    <div key={index}>
                         <div>
                             <span className="font-bold mr-2">Dates: </span>
                             <span>
